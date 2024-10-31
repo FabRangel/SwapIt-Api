@@ -10,8 +10,15 @@ use Illuminate\Support\Facades\Hash;
 class authController extends Controller
 {
     public function register(Request $request){
-        $user = User::create($request -> all());
-        return response()->json($user);
+        // $user = User::create($request -> all());
+        // return response()->json($user);
+        
+        try{
+            $user = User::create($request->all());
+            return response()->json($user, 201);
+        }catch (\Exception $e) {
+            return response()->json(['message' => 'Error al registrar el usuario.'], 500); // Código de error 500
+        }
     }
 
 
