@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\product;
+use Error;
 use Illuminate\Http\Request;
 
 class productController extends Controller
@@ -28,8 +29,12 @@ class productController extends Controller
     }
 
     public function createProduct(Request $request){
-        $product = product::create($request->all());
-        return response()->json($product);
+        try{
+            $product = product::create($request->all());
+            return response()->json($product, 201);
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500); // Código de error 500
+        }
     }
 
     public function updateProduct(Request $request, $id){

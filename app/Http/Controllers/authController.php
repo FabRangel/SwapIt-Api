@@ -22,27 +22,20 @@ class authController extends Controller
     }
 
 
-    // public function login(Request $request)
-    // {
-    //     $user = User::where('email',$request->email)->first();
-    //     if ($user == null) return response(['error' => 'Usuario no encontrado'], 404);
-    //     if (!Hash::check($request->password, $user->password)) return response(['error' => 'Contraseña incorrecta'], 401);
-        
-    //     $token = Auth::guard('api')->login($user);
-
-    //     return $this->respondWithToken($token, $user);
-    // }
-
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        try {
+            $credentials = request(['email', 'password']);
 
-        if (! $token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'No autorizado'], 401);
+            if (! $token = Auth::attempt($credentials)) {
+                return response()->json(['error' => 'No autorizado'], 401);
+            }
+            $user = Auth::guard('api')->user();
+
+            return $this->respondWithToken($token,  $user);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al iniciar sesión.'], 500); // Código de error 500
         }
-        $admin = Auth::guard('api')->user();
-
-        return $this->respondWithToken($token,  $admin);
     }
 
 
