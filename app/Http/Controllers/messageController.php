@@ -21,8 +21,8 @@ class messageController extends Controller
         $message = message::find($id);
         if(!$message){
             return response()->json([
-                'error' => 'Message not found'
-            ]);
+                'error' => 'Mensaje no encontrado'
+            ], 500);
         }
         return response()->json($message);
     }
@@ -36,8 +36,8 @@ class messageController extends Controller
         $message = message::find($id);
         if(!$message){
             return response()->json([
-                'error' => 'Message not found'
-            ]);
+                'error' => 'Mensaje no encontrado'
+            ], 500);
         }
         $message->update($request->all());
         return response()->json($message);
@@ -47,8 +47,9 @@ class messageController extends Controller
         $message = message::find($id);
         if(!$message){
             return response()->json([
-                'error' => 'Message not found'
-            ]);
+                'error' => 'Mensaje no encontrado'
+            ], 500);
+            //return response()->json(['message' => 'Error al registrar el usuario.'], 500);
         }
         $message->delete();
         return response()->json([

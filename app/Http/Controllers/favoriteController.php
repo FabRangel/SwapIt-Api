@@ -17,7 +17,7 @@ class favoriteController extends Controller
     {
         $favorite = Favorite::find($id);
         if (!$favorite) {
-            return response()->json(['error' => 'Favorite not found'], 404);
+            return response()->json(['error' => 'Favorito no encontrado'], 404);
         }
         return response()->json($favorite, 200);
     }
@@ -32,7 +32,7 @@ class favoriteController extends Controller
     {
         $favorite = Favorite::find($id);
         if (!$favorite) {
-            return response()->json(['error' => 'Favorite not found'], 404);
+            return response()->json(['error' => 'Favorito no encontrado'], 404);
         }
         $favorite->update($request->all());
         return response()->json($favorite, 200);
@@ -42,7 +42,7 @@ class favoriteController extends Controller
     {
         $favorite = Favorite::find($id);
         if (!$favorite) {
-            return response()->json(['error' => 'Favorite not found'], 404);
+            return response()->json(['error' => 'Favorito no encontrado'], 404);
         }
         $favorite->delete();
         return response()->json(['message' => 'Favorite deleted successfully'], 200);

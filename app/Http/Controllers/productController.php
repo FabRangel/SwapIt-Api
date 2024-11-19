@@ -22,8 +22,8 @@ class productController extends Controller
         $product = product::find($id);
         if(!$product){
             return response()->json([
-                'error' => 'Product not found'
-            ]);
+                'error' => 'Producto no encontrado'
+            ], 500);
         }
         return response()->json($product);
     }
@@ -41,8 +41,8 @@ class productController extends Controller
         $product = product::find($id);
         if(!$product){
             return response()->json([
-                'error' => 'Product not found'
-            ]);
+                'error' => 'Producto no encontrado'
+            ], 500);
         }
         $product->update($request->all());
         return response()->json($product);
@@ -52,8 +52,8 @@ class productController extends Controller
         $product = product::find($id);
         if(!$product){
             return response()->json([
-                'error' => 'Product not found'
-            ]);
+                'error' => 'Producto no encontrado'
+            ], 500);
         }
         $product->delete();
         return response()->json([

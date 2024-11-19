@@ -21,8 +21,8 @@ class userController extends Controller
         $user = User::find($id);
         if(!$user){
             return response()->json([
-                'error' => 'User not found'
-            ]);
+                'error' => 'Usuario no encontrado'
+            ], 500);
         }
         return response()->json($user);
     }
@@ -31,8 +31,8 @@ class userController extends Controller
         $user = User::find($id);
         if(!$user){
             return response()->json([
-                'error' => 'User not found'
-            ]);
+                'error' => 'Usuario no encontrado'
+            ], 500);
         }
         $user->update($request->all());
         return response()->json($user);
@@ -42,8 +42,8 @@ class userController extends Controller
         $user = User::find($id);
         if(!$user){
             return response()->json([
-                'error' => 'User not found'
-            ]);
+                'error' => 'Usuario no encontrado'
+            ], 500);
         }
         $user->delete();
         return response()->json([

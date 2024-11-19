@@ -21,8 +21,8 @@ class offerController extends Controller
         $offer = offer::find($id);
         if(!$offer){
             return response()->json([
-                'error' => 'Offer not found'
-            ]);
+                'error' => 'Oferta no encontrada'
+            ], 500);
         }
         return response()->json($offer);
     }
@@ -36,8 +36,8 @@ class offerController extends Controller
         $offer = offer::find($id);
         if(!$offer){
             return response()->json([
-                'error' => 'Offer not found'
-            ]);
+                'error' => 'Oferta no encontrada'
+            ], 500);
         }
         $offer->update($request->all());
         return response()->json($offer);
@@ -47,7 +47,7 @@ class offerController extends Controller
         $offer = offer::find($id);
         if(!$offer){
             return response()->json([
-                'error' => 'Offer not found'
+                'error' => 'Oferta no encontrada'
             ]);
         }
         $offer->delete();
