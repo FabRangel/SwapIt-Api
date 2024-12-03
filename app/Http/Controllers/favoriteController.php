@@ -50,13 +50,13 @@ class favoriteController extends Controller
 
     public function showFavoritesByUser($userId)
     {
-        $favorites = Favorite::where('user_id', $userId)->get();
+        $favorites = Favorite::where('id_user', $userId)->get();
         return response()->json($favorites, 200);
     }
 
     public function showFavoritesByProduct($productId)
     {
-        $favorites = Favorite::where('product_id', $productId)->get();
+        $favorites = Favorite::where('id_product', $productId)->get();
         return response()->json($favorites, 200);
     }
 
@@ -68,7 +68,7 @@ class favoriteController extends Controller
 
     public function countFavoritesByProduct($productId)
     {
-        $count = Favorite::where('product_id', $productId)->count();
+        $count = Favorite::where('id_product', $productId)->count();
         return response()->json(['count' => $count], 200);
     }
     

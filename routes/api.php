@@ -7,6 +7,7 @@ use App\Http\Controllers\offerController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use App\Http\Middleware\Authenticate;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,13 +21,17 @@ Route::prefix('auth')->group(function(){
 });
 
 Route::prefix('products')->group(function(){
+    Route::get('/recent', [productController::class, 'showRecentProducts'])->middleware(Authenticate::class);
+    Route::get('/user/{userId}', [productController::class, 'showProductsByUser'])->middleware(Authenticate::class);
+    Route::get('/user-count/{userId}', [productController::class, 'countProductsByUser'])->middleware(Authenticate::class);
+    Route::get('/offer-count/{id}', [productController::class, 'countProductsByOffer'])->middleware(Authenticate::class);
+    Route::get('/with-offer-count/{id}', [productController::class, 'getProductsWithOfferCount'])->middleware(Authenticate::class);
+
     Route::get('/', [productController::class, 'index'])->middleware(Authenticate::class);
     Route::get('/{id}', [productController::class, 'showProduct'])->middleware(Authenticate::class);
     Route::post('/', [productController::class, 'createProduct'])->middleware(Authenticate::class);
     Route::put('/{id}', [productController::class, 'updateProduct'])->middleware(Authenticate::class);
     Route::delete('/{id}', [productController::class, 'deleteProduct'])->middleware(Authenticate::class);
-
-    Route::get('/user/{userId}', [productController::class, 'showProductsByUser'])->middleware(Authenticate::class);
 });
 
 Route::prefix('offers')->group(function(){
@@ -36,7 +41,8 @@ Route::prefix('offers')->group(function(){
     Route::put('/{id}', [offerController::class, 'updateOffer'])->middleware(Authenticate::class);
     Route::delete('/{id}', [offerController::class, 'deleteOffer'])->middleware(Authenticate::class);
 
-    Route::get('/user/{userId}', [offerController::class, 'showOffersByUser'])->middleware(Authenticate::class);
+    Route::get('/product/{productId}', [offerController::class, 'showOffersByProduct'])->middleware(Authenticate::class); //producto que se oferta
+    Route::get('/user/{userId}', [offerController::class, 'showOffersByUser'])->middleware(Authenticate::class); //usuario que oferta
 });
 
 Route::prefix('messages')->group(function(){

@@ -57,7 +57,17 @@ class offerController extends Controller
     }
 
     public function showOffersByUser($userId){
-        $offers = offer::where('id_user', $userId)->get();
+        $offers = offer::where('id_user_offer', $userId)->get();
+        if($offers->isEmpty()){
+            return response()->json([
+                'message' => 'No offers found'
+            ]);
+        }
+        return response()->json($offers);
+    }
+
+    public function showOffersByProduct($productId){
+        $offers = offer::where('id_product', $productId)->get();
         if($offers->isEmpty()){
             return response()->json([
                 'message' => 'No offers found'

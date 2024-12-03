@@ -66,5 +66,15 @@ class messageController extends Controller
         }
         return response()->json($messages);
     }
+
+    public function showMessagesByRecipient($userId){
+        $messages = message::where('id_recipient', $userId)->get();
+        if($messages->isEmpty()){
+            return response()->json([
+                'message' => 'No messages found'
+            ]);
+        }
+        return response()->json($messages);
+    }
     
 }
